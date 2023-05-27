@@ -1,4 +1,4 @@
-package Jake_380;
+package jake380;
 
 import java.awt.EventQueue;
 
@@ -8,20 +8,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EmployeeLP extends JFrame {
 
 	private JPanel contentPane;
-
+	private static EmployeeLP employeeLP;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void startEmployeeLP () {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmployeeLP frame = new EmployeeLP();
-					frame.setVisible(true);
+					employeeLP = new EmployeeLP();
+					employeeLP.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,6 +76,14 @@ public class EmployeeLP extends JFrame {
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton_4.setBounds(10, 184, 163, 23);
 		contentPane.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("TestFeature");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "IT WORKS!!", "YURIKA", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		btnNewButton_5.setBounds(260, 126, 91, 23);
+		contentPane.add(btnNewButton_5);
 	}
-
 }

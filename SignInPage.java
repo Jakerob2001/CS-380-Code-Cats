@@ -1,4 +1,4 @@
-package Jake_380;
+package jake380;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -9,6 +9,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -28,7 +29,9 @@ public class SignInPage extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private SignUp signUp;
+	private User currentUser;
 	private EmployeeLP employeeView;
+	private UserDashboard clientView;
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JTextField txtPass;
@@ -152,10 +155,25 @@ public class SignInPage extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				employeeView = new EmployeeLP();
-				if(validateUser(txtUsername.getText(), txtPass.getText()))
-					employeeView.show();
-				
-				
+				clientView = new UserDashboard();
+				if(validateUser(txtUsername.getText(), txtPass.getText())) {
+					currentUser = populateUser(txtUsername.getText());
+					
+					char status = currentUser.getUserID().charAt(0);
+					switch(status) {
+						case 'C':
+							clientView.show();	
+							break;
+						case 'E':
+							employeeView.show();	
+							break;
+						case 'M':
+							System.out.println("Manager View");		
+							break;
+						default:
+							JOptionPane.showMessageDialog(null, "User ID is Invalid", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -168,8 +186,9 @@ public class SignInPage extends JFrame {
 		JButton btnNewButton_1 = new JButton("Sign Up");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				signUp = new SignUp();
-				signUp.show();
+				SignUp.startSignUp(con, currentUser);
 				
 			}
 		});
@@ -194,14 +213,15 @@ public class SignInPage extends JFrame {
 		
 			while(result.next()) {
 				
-				if(result.getString("user_name").equals(username))
+				if(result.getString("user_name").equals(username)) {
 					if(result.getString("password").equals(pass))
 						return true;
 					else
-						System.out.println("Invalid password");
-				else
-					System.out.println("Username not found");
+						JOptionPane.showMessageDialog(null, "Invalid Password", "Invalid Password", JOptionPane.ERROR_MESSAGE);
+						return false;
+				}
 			}
+			JOptionPane.showMessageDialog(null, "Username is not in System", "Invalid Username", JOptionPane.ERROR_MESSAGE);
 			return false;
 			
 		} catch (SQLException e1) {
@@ -209,6 +229,33 @@ public class SignInPage extends JFrame {
 			e1.printStackTrace();
 		}
 		return false;
+	}
+	
+	public User populateUser(String username) {
+		
+		String query = "SELECT * FROM users WHERE user_name='" + username + "'";
+		
+		Statement statement;
+		
+		User user = null;
+		
+		try {
+			statement = con.createStatement();
+		
+			ResultSet result = statement.executeQuery(query);
+		
+			while(result.next()) {
+				
+				user = new User(result.getString("user_id"), result.getString("user_name"), result.getString("password"),
+					result.getString("f_name"), result.getString("l_name"), Integer.parseInt(result.getString("address_id")));
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		return user;
 	}
 	
 	
