@@ -185,4 +185,8 @@ public class Prebuilt {
         setStorage(storage);
         setPrice(price);
     }
+
+    public String toString(){
+        return comp_name;
+    }
 }
