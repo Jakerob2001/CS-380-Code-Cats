@@ -1,38 +1,59 @@
-package Jake_380;
+package jake380;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JTextField;
 import java.awt.Font;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 public class SignUp extends JFrame {
 
 	private JPanel contentPane;
-	private SignUp signUpFrame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private static SignUp signUpFrame;
+	private JTextField txtFirstName;
+	private JTextField txtLastName;
+	private JTextField txtUsername;
+	private JTextField txtPassword;
+	private JTextField txtStreetNum;
+	private JTextField txtStreetName;
+	private JTextField txtUnitNum;
+	private static Connection con;
+	private static User user;
+	private JTextField txtState;
+	private JTextField txtZip;
+	private JTextField txtCity;
+
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void startSignUp(Connection connection, User currentUser) {
+		con = connection;
+		user = currentUser;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SignUp signUpFrame = new SignUp();
+					signUpFrame = new SignUp();
 					signUpFrame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,165 +68,359 @@ public class SignUp extends JFrame {
 		setTitle("Sign Up");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 569, 582);
+		setBounds(100, 100, 569, 691);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 44, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel_7 = new JLabel("Sign Up");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
-		gbc_lblNewLabel_7.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_7.gridx = 5;
-		gbc_lblNewLabel_7.gridy = 1;
-		contentPane.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		JLabel lblSignUp = new JLabel("Sign Up");
+		lblSignUp.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		GridBagConstraints gbc_lblSignUp = new GridBagConstraints();
+		gbc_lblSignUp.anchor = GridBagConstraints.WEST;
+		gbc_lblSignUp.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSignUp.gridx = 5;
+		gbc_lblSignUp.gridy = 1;
+		contentPane.add(lblSignUp, gbc_lblSignUp);
 		
-		JLabel lblNewLabel = new JLabel("First Name");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 2;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 3;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		JLabel lblFirstName = new JLabel("First Name");
+		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
+		gbc_lblFirstName.gridwidth = 2;
+		gbc_lblFirstName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFirstName.gridx = 0;
+		gbc_lblFirstName.gridy = 3;
+		contentPane.add(lblFirstName, gbc_lblFirstName);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 6;
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 3;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtFirstName = new JTextField();
+		txtFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_txtState = new GridBagConstraints();
+		gbc_txtState.gridwidth = 7;
+		gbc_txtState.insets = new Insets(0, 0, 5, 0);
+		gbc_txtState.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtState.gridx = 2;
+		gbc_txtState.gridy = 3;
+		contentPane.add(txtFirstName, gbc_txtState);
+		txtFirstName.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Last Name");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 5;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel lblLastName = new JLabel("Last Name");
+		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
+		gbc_lblLastName.gridwidth = 2;
+		gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLastName.gridx = 0;
+		gbc_lblLastName.gridy = 5;
+		contentPane.add(lblLastName, gbc_lblLastName);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField_1.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 6;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 5;
-		contentPane.add(textField_1, gbc_textField_1);
+		txtLastName = new JTextField();
+		txtLastName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtLastName.setColumns(10);
+		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
+		gbc_txtLastName.gridwidth = 7;
+		gbc_txtLastName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLastName.gridx = 2;
+		gbc_txtLastName.gridy = 5;
+		contentPane.add(txtLastName, gbc_txtLastName);
 		
-		JLabel lblNewLabel_2 = new JLabel("Username:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.gridwidth = 2;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 7;
-		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
+		gbc_lblUsername.gridwidth = 2;
+		gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsername.gridx = 0;
+		gbc_lblUsername.gridy = 7;
+		contentPane.add(lblUsername, gbc_lblUsername);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField_2.setColumns(10);
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.gridwidth = 6;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 7;
-		contentPane.add(textField_2, gbc_textField_2);
+		txtUsername = new JTextField();
+		txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtUsername.setColumns(10);
+		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
+		gbc_txtUsername.gridwidth = 7;
+		gbc_txtUsername.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsername.gridx = 2;
+		gbc_txtUsername.gridy = 7;
+		contentPane.add(txtUsername, gbc_txtUsername);
 		
-		JLabel lblNewLabel_3 = new JLabel("Password:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.gridwidth = 2;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 9;
-		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
+		gbc_lblPassword.gridwidth = 2;
+		gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPassword.gridx = 0;
+		gbc_lblPassword.gridy = 9;
+		contentPane.add(lblPassword, gbc_lblPassword);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField_3.setColumns(10);
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 6;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 9;
-		contentPane.add(textField_3, gbc_textField_3);
+		txtPassword = new JTextField();
+		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_passwordField = new GridBagConstraints();
+		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordField.gridwidth = 7;
+		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
+		gbc_passwordField.gridx = 2;
+		gbc_passwordField.gridy = 9;
+		contentPane.add(txtPassword, gbc_passwordField);
 		
-		JLabel lblNewLabel_4 = new JLabel("Steet Number");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.gridwidth = 2;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 11;
-		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		JLabel lblStreetNum = new JLabel("Steet Number");
+		lblStreetNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblStreetNum = new GridBagConstraints();
+		gbc_lblStreetNum.gridwidth = 2;
+		gbc_lblStreetNum.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStreetNum.gridx = 0;
+		gbc_lblStreetNum.gridy = 11;
+		contentPane.add(lblStreetNum, gbc_lblStreetNum);
 		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField_4.setColumns(10);
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.gridwidth = 6;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 2;
-		gbc_textField_4.gridy = 11;
-		contentPane.add(textField_4, gbc_textField_4);
+		txtStreetNum = new JTextField();
+		txtStreetNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtStreetNum.setColumns(10);
+		GridBagConstraints gbc_txtStreetNum = new GridBagConstraints();
+		gbc_txtStreetNum.gridwidth = 7;
+		gbc_txtStreetNum.insets = new Insets(0, 0, 5, 0);
+		gbc_txtStreetNum.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtStreetNum.gridx = 2;
+		gbc_txtStreetNum.gridy = 11;
+		contentPane.add(txtStreetNum, gbc_txtStreetNum);
 		
-		JLabel lblNewLabel_5 = new JLabel("Street Name");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.gridwidth = 2;
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_5.gridx = 0;
-		gbc_lblNewLabel_5.gridy = 13;
-		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
+		JLabel lblStreetName = new JLabel("Street Name");
+		lblStreetName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblStreetName = new GridBagConstraints();
+		gbc_lblStreetName.gridwidth = 2;
+		gbc_lblStreetName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStreetName.gridx = 0;
+		gbc_lblStreetName.gridy = 13;
+		contentPane.add(lblStreetName, gbc_lblStreetName);
 		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField_5.setColumns(10);
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.gridwidth = 6;
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 2;
-		gbc_textField_5.gridy = 13;
-		contentPane.add(textField_5, gbc_textField_5);
+		txtStreetName = new JTextField();
+		txtStreetName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtStreetName.setColumns(10);
+		GridBagConstraints gbc_txtStreetName = new GridBagConstraints();
+		gbc_txtStreetName.gridwidth = 7;
+		gbc_txtStreetName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtStreetName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtStreetName.gridx = 2;
+		gbc_txtStreetName.gridy = 13;
+		contentPane.add(txtStreetName, gbc_txtStreetName);
 		
-		JLabel lblNewLabel_6 = new JLabel("Unit # (Optional)");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-		gbc_lblNewLabel_6.gridwidth = 2;
-		gbc_lblNewLabel_6.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_6.gridx = 0;
-		gbc_lblNewLabel_6.gridy = 15;
-		contentPane.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		JLabel lblUnitNum = new JLabel("Unit # (Optional)");
+		lblUnitNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblUnitNum = new GridBagConstraints();
+		gbc_lblUnitNum.gridwidth = 2;
+		gbc_lblUnitNum.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUnitNum.gridx = 0;
+		gbc_lblUnitNum.gridy = 15;
+		contentPane.add(lblUnitNum, gbc_lblUnitNum);
 		
-		textField_6 = new JTextField();
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField_6.setColumns(10);
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.gridwidth = 6;
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 2;
-		gbc_textField_6.gridy = 15;
-		contentPane.add(textField_6, gbc_textField_6);
+		txtUnitNum = new JTextField();
+		txtUnitNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtUnitNum.setColumns(10);
+		GridBagConstraints gbc_txtUnitNum = new GridBagConstraints();
+		gbc_txtUnitNum.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUnitNum.gridwidth = 7;
+		gbc_txtUnitNum.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUnitNum.gridx = 2;
+		gbc_txtUnitNum.gridy = 15;
+		contentPane.add(txtUnitNum, gbc_txtUnitNum);
+		
+		
+		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean canAdd = verifySignUp();
+
+				if (canAdd) {
+					try {
+						addUser();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				signUpFrame.setDefaultCloseOperation(HIDE_ON_CLOSE);
+				signUpFrame.getDefaultCloseOperation();
+			}
+		});
+		
+		JLabel lblCity = new JLabel("City");
+		lblCity.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblCity = new GridBagConstraints();
+		gbc_lblCity.anchor = GridBagConstraints.EAST;
+		gbc_lblCity.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCity.gridx = 1;
+		gbc_lblCity.gridy = 17;
+		contentPane.add(lblCity, gbc_lblCity);
+		
+		txtCity = new JTextField();
+		txtCity.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_txtCity = new GridBagConstraints();
+		gbc_txtCity.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCity.gridx = 2;
+		gbc_txtCity.gridy = 17;
+		contentPane.add(txtCity, gbc_txtCity);
+		txtCity.setColumns(10);
+		
+		JLabel lblState = new JLabel("State");
+		lblState.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblState = new GridBagConstraints();
+		gbc_lblState.anchor = GridBagConstraints.EAST;
+		gbc_lblState.insets = new Insets(0, 0, 5, 5);
+		gbc_lblState.gridx = 4;
+		gbc_lblState.gridy = 17;
+		contentPane.add(lblState, gbc_lblState);
+		
+		txtState = new JTextField();
+		txtState.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_txtState1 = new GridBagConstraints();
+		gbc_txtState1.insets = new Insets(0, 0, 5, 5);
+		gbc_txtState1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtState1.gridx = 5;
+		gbc_txtState1.gridy = 17;
+		contentPane.add(txtState, gbc_txtState1);
+		txtState.setColumns(10);
+		
+		JLabel lblZip = new JLabel("Zipcode");
+		lblZip.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_lblZip = new GridBagConstraints();
+		gbc_lblZip.anchor = GridBagConstraints.EAST;
+		gbc_lblZip.insets = new Insets(0, 0, 5, 5);
+		gbc_lblZip.gridx = 7;
+		gbc_lblZip.gridy = 17;
+		contentPane.add(lblZip, gbc_lblZip);
+		
+		txtZip = new JTextField();
+		txtZip.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		GridBagConstraints gbc_txtZip = new GridBagConstraints();
+		gbc_txtZip.insets = new Insets(0, 0, 5, 0);
+		gbc_txtZip.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtZip.gridx = 8;
+		gbc_txtZip.gridy = 17;
+		contentPane.add(txtZip, gbc_txtZip);
+		txtZip.setColumns(10);
+		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnSignUp = new GridBagConstraints();
+		gbc_btnSignUp.gridx = 8;
+		gbc_btnSignUp.gridy = 19;
+		contentPane.add(btnSignUp, gbc_btnSignUp);
+		
+		
+		JButton btnBack = new JButton("<- Go Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.insets = new Insets(0, 0, 0, 5);
+		gbc_btnBack.gridx = 1;
+		gbc_btnBack.gridy = 19;
+		contentPane.add(btnBack, gbc_btnBack);
+		
+		
+	}
+	
+	public boolean verifySignUp () {
+		
+		boolean allFieldsFilled = txtFirstName.getText() != "" && txtLastName.getText() != "" && 
+				txtUsername.getText() != "" && txtPassword.getText() != "" && 
+				txtStreetName.getText() != "" && txtStreetNum.getText().matches("[0-9]+")
+				&& txtCity.getText() != "" && txtState.getText().matches("[A-Z]{2}") && txtZip.getText().matches("[0-9]{5}");
+		
+		if (allFieldsFilled) {
+			
+			String query = "SELECT * FROM users";
+		
+			Statement statement;
+			
+			try {
+				statement = con.createStatement();
+		
+				ResultSet result = statement.executeQuery(query);
+		
+				while(result.next()) {
+				
+					if(result.getString("user_name").equals(txtUsername.getText())) {
+						JOptionPane.showMessageDialog(null, "Username is already in use", "Invalid Username", JOptionPane.ERROR_MESSAGE);
+						return false;
+					}
+				
+				}
+			
+				JOptionPane.showMessageDialog(null, "Sign Up Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+				return true;
+			
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, "All required fields must be filled and correct", "Fields Empty", JOptionPane.ERROR_MESSAGE);
+		return false;
+		
+	}
+	
+	public void addUser () throws SQLException {
+		
+		String query = "SELECT * FROM users WHERE 'user_name' = 'variable';";
+		
+		Statement statement = con.createStatement();
+		
+		String variableID = "";
+		
+		try {
+			statement = con.createStatement();
+	
+			ResultSet result = statement.executeQuery(query);
+	
+			while(result.next()) {
+			
+				variableID = result.getString("user_id");
+			
+			}
+		
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println(variableID);
+		
+		query = "INSERT INTO `c_cats`.`users` (`user_id`, `user_name`, `password`, `f_name`, `l_name`, `address_id`) VALUES ('C" +
+						(variableID + 1) + "', '" + txtUsername.getText() + "', '" + txtPassword.getText() + "', '" + txtFirstName.getText() 
+						+ "', '" + txtLastName.getText() + "', '" + 1 + "');";
+		
+		statement.execute(query);
+
+		String queryUpdate = "UPDATE users SET user_id = '" + (variableID + 1) + "' WHERE (user_name = 'variable');";
+		
+		statement.execute(queryUpdate);
+		
+		JOptionPane.showMessageDialog(contentPane, "Added Successfully", "User Added", JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+	
+	public static String createID(String str, int number) {
+
+        String num = str.replaceAll("[^0-9]", "");
+	        
+	    int numValue = Integer.parseInt(num);
+
+	    int newNum = numValue + number;
+	        
+	    String formattedNumericPart = String.format("%0" + num.length() + "d", newNum);
+	        
+	    return str.replaceFirst("[0-9]+", formattedNumericPart);
+
 	}
 
 }
