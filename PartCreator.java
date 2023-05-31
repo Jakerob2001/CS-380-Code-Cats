@@ -170,7 +170,7 @@ public class PartCreator extends JFrame {
 					insertStatement.execute(insert);
 
 					//add new part to part_inventory table with qty 0
-					insert = "INSERT INTO `c_cats`.`part_inventory` (`part_id`, `qty`) VALUES ('" + newPartID + "', '0');";
+					insert = "INSERT INTO `c_cats`.`part_inventory` (`part_id`, `qty`, `pending_qty`) VALUES ('" + newPartID + "', '0', '0');";
 					insertStatement = con.createStatement();
 					insertStatement.execute(insert);
 

@@ -1,3 +1,7 @@
+/**
+ * Class for creating a new repair order - customer view
+ * @author Nathan
+ */
 import com.github.lgooddatepicker.components.DateTimePicker;
 
 import javax.swing.*;
