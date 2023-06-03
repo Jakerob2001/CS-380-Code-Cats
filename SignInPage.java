@@ -1,18 +1,10 @@
-package jake380;
-
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -28,31 +20,41 @@ public class SignInPage extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private SignUp signUp;
+	private SignUpPage signUp;
+	private static SignInPage frame;
 	private User currentUser;
-	private EmployeeLP employeeView;
+	private EmployeeDashboard employeeView;
 	private UserDashboard clientView;
 	private JPanel contentPane;
 	private JTextField txtUsername;
-	private JTextField txtPass;
+	private JPasswordField txtPass;
+	private JCheckBox chkShowPass;
 	private static Connection con;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+		startUpSignIn();
+			
+	}
+
+	public static void startUpSignIn () {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SignInPage frame = new SignInPage();
+					frame = new SignInPage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-				connect();
 			}
 		});
+
+		connect();
+
 	}
 	
 	public static void connect() {
@@ -103,101 +105,128 @@ public class SignInPage extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblNewLabel = new JLabel("Welcome");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		JLabel lblWelcome = new JLabel("Welcome");
+		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcome.setFont(new Font("Tahoma", Font.BOLD, 32));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 6;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
-		panel.add(lblNewLabel, gbc_lblNewLabel);
+		panel.add(lblWelcome, gbc_lblNewLabel);
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 18));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 2;
-		panel.add(lblUsername, gbc_lblNewLabel_1);
+		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
+		gbc_lblUsername.fill = GridBagConstraints.RELATIVE;
+		gbc_lblUsername.insets = new Insets(20, 5, 20, 5);
+		gbc_lblUsername.gridwidth = 1;
+		gbc_lblUsername.gridx = 0;
+		gbc_lblUsername.gridy = 2;
+		panel.add(lblUsername, gbc_lblUsername);
 		
 		txtUsername = new JTextField();
 		txtUsername.setFont(new Font("Tahoma", Font.BOLD, 18));
 		txtUsername.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 5;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 2;
-		panel.add(txtUsername, gbc_textField_1);
+		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
+		gbc_txtUsername.gridwidth = 5;
+		gbc_txtUsername.insets = new Insets(20, 0, 20, 5);
+		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsername.gridx = 1;
+		gbc_txtUsername.gridy = 2;
+		panel.add(txtUsername, gbc_txtUsername);
 		
-		JLabel lblNewLabel_2 = new JLabel("Password:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 18));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 4;
-		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 18));
+		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
+		gbc_lblPassword.fill = GridBagConstraints.RELATIVE;
+		gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPassword.gridwidth = 1;
+		gbc_lblPassword.gridx = 0;
+		gbc_lblPassword.gridy = 4;
+		panel.add(lblPassword, gbc_lblPassword);
 		
-		txtPass = new JTextField();
+		txtPass = new JPasswordField();
 		txtPass.setFont(new Font("Tahoma", Font.BOLD, 18));
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 5;
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 4;
-		panel.add(txtPass, gbc_textField);
+		GridBagConstraints gbc_txtPass = new GridBagConstraints();
+		gbc_txtPass.gridwidth = 5;
+		gbc_txtPass.insets = new Insets(20, 0, 20, 0);
+		gbc_txtPass.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPass.gridx = 1;
+		gbc_txtPass.gridy = 4;
+		panel.add(txtPass, gbc_txtPass);
 		txtPass.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Sign In");
-		btnNewButton.addActionListener(new ActionListener() {
+
+		chkShowPass = new JCheckBox("Show"/*new ImageIcon("hide-password-icon.png")*/);
+		chkShowPass.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_chkPass = new GridBagConstraints();
+		gbc_chkPass.insets = new Insets(20, 5, 20, 0);
+		gbc_chkPass.fill = GridBagConstraints.RELATIVE;
+		gbc_chkPass.gridx = 6;
+		gbc_chkPass.gridy = 4;
+		gbc_chkPass.gridwidth = 6;
+		chkShowPass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				employeeView = new EmployeeLP();
-				clientView = new UserDashboard();
-				if(validateUser(txtUsername.getText(), txtPass.getText())) {
+
+				txtPass.setEchoChar(chkShowPass.isSelected() ? '\u0000' : '•');
+
+			}
+		});
+		panel.add(chkShowPass, gbc_chkPass);
+
+
+		JButton btnSignIn = new JButton("Sign In");
+		btnSignIn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnSignIn = new GridBagConstraints();
+		gbc_btnSignIn.insets = new Insets(20, 0, 20, 5);
+		gbc_btnSignIn.fill = GridBagConstraints.RELATIVE;
+		gbc_btnSignIn.gridx = 0;
+		gbc_btnSignIn.gridy = 6;
+		gbc_btnSignIn.gridwidth = 1;
+		btnSignIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(validateUser(txtUsername.getText(), String.valueOf(txtPass.getPassword()))) {
 					currentUser = populateUser(txtUsername.getText());
 					
 					char status = currentUser.getUserID().charAt(0);
-					switch(status) {
-						case 'C':
-							clientView.show();	
-							break;
-						case 'E':
-							employeeView.show();	
-							break;
-						case 'M':
-							System.out.println("Manager View");		
-							break;
-						default:
-							JOptionPane.showMessageDialog(null, "User ID is Invalid", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+					switch (status) {
+						case 'C' -> {
+							frame.setVisible(false);
+							clientView = new UserDashboard(con, currentUser);
+							clientView.setVisible(true);
+						}
+						case 'E', 'M' -> {
+							frame.setVisible(false);
+							employeeView = new EmployeeDashboard(con, currentUser);
+							employeeView.setVisible(true);
+						}
+						default ->
+								JOptionPane.showMessageDialog(null, "User ID is Invalid", "Invalid ID", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 6;
-		panel.add(btnNewButton, gbc_btnNewButton);
+		panel.add(btnSignIn, gbc_btnSignIn);
 		
-		JButton btnNewButton_1 = new JButton("Sign Up");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		
+		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnSignUp = new GridBagConstraints();
+		gbc_btnSignUp.insets = new Insets(20, 0, 20, 0);
+		gbc_btnSignUp.gridx = 3;
+		gbc_btnSignUp.gridy = 6;
+		gbc_btnSignUp.gridwidth = 5;
+		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				signUp = new SignUp();
-				SignUp.startSignUp(con, currentUser);
+				frame.setVisible(false);
+				signUp = new SignUpPage();	
+				signUp.startSignUp(con, currentUser);
 				
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_1.gridx = 5;
-		gbc_btnNewButton_1.gridy = 6;
-		panel.add(btnNewButton_1, gbc_btnNewButton_1);
+		panel.add(btnSignUp, gbc_btnSignUp);
 		
 	}
 	
@@ -214,18 +243,18 @@ public class SignInPage extends JFrame {
 			while(result.next()) {
 				
 				if(result.getString("user_name").equals(username)) {
-					if(result.getString("password").equals(pass))
+					if(result.getString("password").equals(pass)) {
 						return true;
-					else
+					} else {
 						JOptionPane.showMessageDialog(null, "Invalid Password", "Invalid Password", JOptionPane.ERROR_MESSAGE);
 						return false;
+					}
 				}
 			}
 			JOptionPane.showMessageDialog(null, "Username is not in System", "Invalid Username", JOptionPane.ERROR_MESSAGE);
 			return false;
 			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return false;
@@ -251,12 +280,10 @@ public class SignInPage extends JFrame {
 			}
 			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		return user;
 	}
-	
-	
+
 }
