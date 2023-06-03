@@ -1,4 +1,3 @@
-package jake380;
 
 /**
  * Abstract class user to store values for different types of users
@@ -42,7 +41,7 @@ public class User {
 	/**
 	 * @param userID the userID to set
 	 */
-	private void setUserID(String userID) {
+	public void setUserID(String userID) {
 	
 		this.userID = userID;
 	
@@ -51,7 +50,7 @@ public class User {
 	/**
 	 * @return the username
 	 */
-	private String getUsername() {
+	public String getUsername() {
 	
 		return username;
 	
@@ -60,7 +59,7 @@ public class User {
 	/**
 	 * @param username the username to set
 	 */
-	private void setUsername(String username) {
+	public void setUsername(String username) {
 	
 		this.username = username;
 	
@@ -69,7 +68,7 @@ public class User {
 	/**
 	 * @return the password
 	 */
-	private String getPassword() {
+	public String getPassword() {
 	
 		return password;
 	
@@ -78,7 +77,7 @@ public class User {
 	/**
 	 * @param password the password to set
 	 */
-	private void setPassword(String password) {
+	public void setPassword(String password) {
 	
 		this.password = password;
 	
@@ -87,7 +86,7 @@ public class User {
 	/**
 	 * @return the firstName
 	 */
-	private String getFirstName() {
+	public String getFirstName() {
 		
 		return firstName;
 	
@@ -96,7 +95,7 @@ public class User {
 	/**
 	 * @param firstName the firstName to set
 	 */
-	private void setFirstName(String firstName) {
+	public void setFirstName(String firstName) {
 	
 		this.firstName = firstName;
 	
@@ -105,7 +104,7 @@ public class User {
 	/**
 	 * @return the lastName
 	 */
-	private String getLastName() {
+	public String getLastName() {
 		
 		return lastName;
 	
@@ -114,7 +113,7 @@ public class User {
 	/**
 	 * @param lastName the lastName to set
 	 */
-	private void setLastName(String lastName) {
+	public void setLastName(String lastName) {
 	
 		this.lastName = lastName;
 	
@@ -123,7 +122,7 @@ public class User {
 	/**
 	 * @return the addressID
 	 */
-	private int getAddressID() {
+	public int getAddressID() {
 	
 		return addressID;
 	
@@ -132,7 +131,7 @@ public class User {
 	/**
 	 * @param addressID the addressID to set
 	 */
-	private void setAddressID(int addressID) {
+	public void setAddressID(int addressID) {
 		
 		this.addressID = addressID;
 	
