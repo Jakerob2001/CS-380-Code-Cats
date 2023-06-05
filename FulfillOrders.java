@@ -20,25 +20,11 @@ public class FulfillOrders extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void startFulfillment(Connection connection, User currentUser) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FulfillOrders frame = new FulfillOrders();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public FulfillOrders() {
+	public FulfillOrders(Connection con, User currentUSer) {
+
+		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 644, 470);

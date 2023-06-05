@@ -44,10 +44,17 @@ public class EmployeeDashboard extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		contentPane.add(lblNewLabel);
 
-		JButton btnNewButton = new JButton("View Inventory");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(10, 40, 163, 23);
-		contentPane.add(btnNewButton);
+		JButton btnViewInventory = new JButton("View Inventory");
+		btnViewInventory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				new Inventory(con, currUser);
+
+			}
+		});
+		btnViewInventory.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnViewInventory.setBounds(10, 40, 163, 23);
+		contentPane.add(btnViewInventory);
 
 		JButton btnNewButton_1 = new JButton("View Repair Requests");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -76,6 +83,13 @@ public class EmployeeDashboard extends JFrame {
 		JButton btnNewButton_4 = new JButton("View Orders");
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton_4.setBounds(10, 184, 163, 23);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				new FulfillOrders(con, currUser);
+
+			}
+		});
 		contentPane.add(btnNewButton_4);
 
 		JButton btnNewButton_5 = new JButton("TestFeature");

@@ -80,11 +80,11 @@ public class SignUpPage extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblSignUp = new JLabel("Sign Up");
-		lblSignUp.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblSignUp.setFont(new Font("Tahoma", Font.BOLD, 22));
 		GridBagConstraints gbc_lblSignUp = new GridBagConstraints();
-		gbc_lblSignUp.anchor = GridBagConstraints.WEST;
-		gbc_lblSignUp.insets = new Insets(0, 0, 10, 5);
-		gbc_lblSignUp.gridx = 5;
+		gbc_lblSignUp.anchor = GridBagConstraints.CENTER;
+		gbc_lblSignUp.insets = new Insets(0, 0, 10, 30);
+		gbc_lblSignUp.gridx = 3;
 		gbc_lblSignUp.gridy = 1;
 		contentPane.add(lblSignUp, gbc_lblSignUp);
 		
@@ -92,7 +92,7 @@ public class SignUpPage extends JFrame {
 		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.gridwidth = 2;
-		gbc_lblFirstName.insets = new Insets(20, 0, 20, 5);
+		gbc_lblFirstName.insets = new Insets(20, 0, 5, 5);
 		gbc_lblFirstName.gridx = 0;
 		gbc_lblFirstName.gridy = 3;
 		contentPane.add(lblFirstName, gbc_lblFirstName);
@@ -101,7 +101,7 @@ public class SignUpPage extends JFrame {
 		txtFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_txtState = new GridBagConstraints();
 		gbc_txtState.gridwidth = 7;
-		gbc_txtState.insets = new Insets(0, 0, 5, 0);
+		gbc_txtState.insets = new Insets(20, 0, 5, 0);
 		gbc_txtState.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtState.gridx = 2;
 		gbc_txtState.gridy = 3;
@@ -112,7 +112,7 @@ public class SignUpPage extends JFrame {
 		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
 		gbc_lblLastName.gridwidth = 2;
-		gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLastName.insets = new Insets(20, 0, 5, 5);
 		gbc_lblLastName.gridx = 0;
 		gbc_lblLastName.gridy = 5;
 		contentPane.add(lblLastName, gbc_lblLastName);
@@ -122,7 +122,7 @@ public class SignUpPage extends JFrame {
 		txtLastName.setColumns(10);
 		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
 		gbc_txtLastName.gridwidth = 7;
-		gbc_txtLastName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLastName.insets = new Insets(20, 0, 5, 0);
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtLastName.gridx = 2;
 		gbc_txtLastName.gridy = 5;
@@ -132,7 +132,7 @@ public class SignUpPage extends JFrame {
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.gridwidth = 2;
-		gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsername.insets = new Insets(20, 0, 5, 5);
 		gbc_lblUsername.gridx = 0;
 		gbc_lblUsername.gridy = 7;
 		contentPane.add(lblUsername, gbc_lblUsername);
@@ -142,7 +142,7 @@ public class SignUpPage extends JFrame {
 		txtUsername.setColumns(10);
 		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
 		gbc_txtUsername.gridwidth = 7;
-		gbc_txtUsername.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUsername.insets = new Insets(20, 0, 5, 0);
 		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsername.gridx = 2;
 		gbc_txtUsername.gridy = 7;
@@ -152,7 +152,7 @@ public class SignUpPage extends JFrame {
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
 		gbc_lblPassword.gridwidth = 2;
-		gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPassword.insets = new Insets(20, 0, 5, 5);
 		gbc_lblPassword.gridx = 0;
 		gbc_lblPassword.gridy = 9;
 		contentPane.add(lblPassword, gbc_lblPassword);
@@ -162,7 +162,7 @@ public class SignUpPage extends JFrame {
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField.gridwidth = 7;
-		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
+		gbc_passwordField.insets = new Insets(20, 0, 5, 0);
 		gbc_passwordField.gridx = 2;
 		gbc_passwordField.gridy = 9;
 		contentPane.add(txtPassword, gbc_passwordField);
@@ -171,7 +171,7 @@ public class SignUpPage extends JFrame {
 		lblStreetNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblStreetNum = new GridBagConstraints();
 		gbc_lblStreetNum.gridwidth = 2;
-		gbc_lblStreetNum.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStreetNum.insets = new Insets(20, 0, 5, 5);
 		gbc_lblStreetNum.gridx = 0;
 		gbc_lblStreetNum.gridy = 11;
 		contentPane.add(lblStreetNum, gbc_lblStreetNum);
@@ -181,7 +181,7 @@ public class SignUpPage extends JFrame {
 		txtStreetNum.setColumns(10);
 		GridBagConstraints gbc_txtStreetNum = new GridBagConstraints();
 		gbc_txtStreetNum.gridwidth = 7;
-		gbc_txtStreetNum.insets = new Insets(0, 0, 5, 0);
+		gbc_txtStreetNum.insets = new Insets(20, 0, 5, 0);
 		gbc_txtStreetNum.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtStreetNum.gridx = 2;
 		gbc_txtStreetNum.gridy = 11;
@@ -191,7 +191,7 @@ public class SignUpPage extends JFrame {
 		lblStreetName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblStreetName = new GridBagConstraints();
 		gbc_lblStreetName.gridwidth = 2;
-		gbc_lblStreetName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStreetName.insets = new Insets(20, 0, 5, 5);
 		gbc_lblStreetName.gridx = 0;
 		gbc_lblStreetName.gridy = 13;
 		contentPane.add(lblStreetName, gbc_lblStreetName);
@@ -201,7 +201,7 @@ public class SignUpPage extends JFrame {
 		txtStreetName.setColumns(10);
 		GridBagConstraints gbc_txtStreetName = new GridBagConstraints();
 		gbc_txtStreetName.gridwidth = 7;
-		gbc_txtStreetName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtStreetName.insets = new Insets(20, 0, 5, 0);
 		gbc_txtStreetName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtStreetName.gridx = 2;
 		gbc_txtStreetName.gridy = 13;
@@ -211,7 +211,7 @@ public class SignUpPage extends JFrame {
 		lblUnitNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblUnitNum = new GridBagConstraints();
 		gbc_lblUnitNum.gridwidth = 2;
-		gbc_lblUnitNum.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUnitNum.insets = new Insets(20, 0, 5, 5);
 		gbc_lblUnitNum.gridx = 0;
 		gbc_lblUnitNum.gridy = 15;
 		contentPane.add(lblUnitNum, gbc_lblUnitNum);
@@ -220,7 +220,7 @@ public class SignUpPage extends JFrame {
 		txtUnitNum.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtUnitNum.setColumns(10);
 		GridBagConstraints gbc_txtUnitNum = new GridBagConstraints();
-		gbc_txtUnitNum.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUnitNum.insets = new Insets(20, 0, 5, 0);
 		gbc_txtUnitNum.gridwidth = 7;
 		gbc_txtUnitNum.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUnitNum.gridx = 2;
@@ -229,6 +229,12 @@ public class SignUpPage extends JFrame {
 		
 		
 		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnSignUp = new GridBagConstraints();
+		gbc_btnSignUp.insets = new Insets(0, 0, 20, 40);
+		gbc_btnSignUp.gridwidth = 2;
+		gbc_btnSignUp.gridx = 7;
+		gbc_btnSignUp.gridy = 19;
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -243,26 +249,26 @@ public class SignUpPage extends JFrame {
 					}
 				}
 				signUpFrame.setDefaultCloseOperation(HIDE_ON_CLOSE);
-				signUpFrame.getDefaultCloseOperation();
 			}
 		});
+		contentPane.add(btnSignUp, gbc_btnSignUp);
 		
 		JLabel lblCity = new JLabel("City");
-		lblCity.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCity.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblCity = new GridBagConstraints();
-		gbc_lblCity.anchor = GridBagConstraints.EAST;
-		gbc_lblCity.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCity.gridx = 1;
+		gbc_lblCity.anchor = GridBagConstraints.WEST;
+		gbc_lblCity.insets = new Insets(20, 20, 5, 5);
+		gbc_lblCity.gridx = 0;
 		gbc_lblCity.gridy = 17;
 		contentPane.add(lblCity, gbc_lblCity);
 		
 		txtCity = new JTextField();
 		txtCity.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_txtCity = new GridBagConstraints();
-		gbc_txtCity.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCity.insets = new Insets(20, 5, 5, 20);
 		gbc_txtCity.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCity.gridx = 2;
+		gbc_txtCity.gridx = 1;
 		gbc_txtCity.gridy = 17;
 		contentPane.add(txtCity, gbc_txtCity);
 		txtCity.setColumns(10);
@@ -271,17 +277,18 @@ public class SignUpPage extends JFrame {
 		lblState.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblState = new GridBagConstraints();
 		gbc_lblState.anchor = GridBagConstraints.EAST;
-		gbc_lblState.insets = new Insets(0, 0, 5, 5);
-		gbc_lblState.gridx = 4;
+		gbc_lblState.insets = new Insets(20, 20, 5, 5);
+		gbc_lblState.gridx = 2;
 		gbc_lblState.gridy = 17;
 		contentPane.add(lblState, gbc_lblState);
 		
 		txtState = new JTextField();
 		txtState.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_txtState1 = new GridBagConstraints();
-		gbc_txtState1.insets = new Insets(0, 0, 5, 5);
+		gbc_txtState1.insets = new Insets(20, 10, 5, 40);
 		gbc_txtState1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtState1.gridx = 5;
+		gbc_txtState1.gridwidth = 1;
+		gbc_txtState1.gridx = 3;
 		gbc_txtState1.gridy = 17;
 		contentPane.add(txtState, gbc_txtState1);
 		txtState.setColumns(10);
@@ -290,7 +297,7 @@ public class SignUpPage extends JFrame {
 		lblZip.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblZip = new GridBagConstraints();
 		gbc_lblZip.anchor = GridBagConstraints.EAST;
-		gbc_lblZip.insets = new Insets(0, 0, 5, 5);
+		gbc_lblZip.insets = new Insets(20, 0, 5, 5);
 		gbc_lblZip.gridx = 7;
 		gbc_lblZip.gridy = 17;
 		contentPane.add(lblZip, gbc_lblZip);
@@ -298,17 +305,12 @@ public class SignUpPage extends JFrame {
 		txtZip = new JTextField();
 		txtZip.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GridBagConstraints gbc_txtZip = new GridBagConstraints();
-		gbc_txtZip.insets = new Insets(0, 0, 5, 0);
+		gbc_txtZip.insets = new Insets(20, 0, 5, 20);
 		gbc_txtZip.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtZip.gridx = 8;
 		gbc_txtZip.gridy = 17;
 		contentPane.add(txtZip, gbc_txtZip);
 		txtZip.setColumns(10);
-		btnSignUp.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_btnSignUp = new GridBagConstraints();
-		gbc_btnSignUp.gridx = 8;
-		gbc_btnSignUp.gridy = 19;
-		contentPane.add(btnSignUp, gbc_btnSignUp);
 		
 		
 		JButton btnBack = new JButton("<- Go Back");
@@ -321,7 +323,7 @@ public class SignUpPage extends JFrame {
 		});
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
-		gbc_btnBack.insets = new Insets(0, 0, 0, 5);
+		gbc_btnBack.insets = new Insets(0, 0, 20, 0);
 		gbc_btnBack.gridx = 1;
 		gbc_btnBack.gridy = 19;
 		contentPane.add(btnBack, gbc_btnBack);

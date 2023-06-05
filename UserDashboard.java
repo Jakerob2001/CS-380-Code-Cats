@@ -14,7 +14,7 @@ public class UserDashboard extends JFrame {
 	private static UserDashboard userDash;
 	private User currUser;
 
-	private Connection con;
+	Connection con;
 
 	/**
 	 * Create the frame.
@@ -43,6 +43,9 @@ public class UserDashboard extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				new Orderer(con, currUser);
+
 			}
 		});
 		btnNewButton_1.setBounds(10, 112, 175, 23);

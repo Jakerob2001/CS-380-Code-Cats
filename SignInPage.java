@@ -61,7 +61,7 @@ public class SignInPage extends JFrame {
 		
 		String url = "jdbc:mysql://localhost:3306/c_cats";
 		String userName = "root";
-		String pass = "Jrob2001!";
+		String pass = "Jrob2001";
 		
 		try {
 
@@ -109,9 +109,9 @@ public class SignInPage extends JFrame {
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setFont(new Font("Tahoma", Font.BOLD, 32));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 6;
+		//gbc_lblNewLabel.gridwidth = 0;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridx = 2;
 		gbc_lblNewLabel.gridy = 0;
 		panel.add(lblWelcome, gbc_lblNewLabel);
 		
@@ -160,7 +160,7 @@ public class SignInPage extends JFrame {
 		chkShowPass = new JCheckBox("Show"/*new ImageIcon("hide-password-icon.png")*/);
 		chkShowPass.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_chkPass = new GridBagConstraints();
-		gbc_chkPass.insets = new Insets(20, 5, 20, 0);
+		gbc_chkPass.insets = new Insets(20, 5, 20, 30);
 		gbc_chkPass.fill = GridBagConstraints.RELATIVE;
 		gbc_chkPass.gridx = 6;
 		gbc_chkPass.gridy = 4;
@@ -235,6 +235,7 @@ public class SignInPage extends JFrame {
 		String query = "SELECT * FROM users";
 		
 		Statement statement;
+
 		try {
 			statement = con.createStatement();
 		
