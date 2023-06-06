@@ -27,6 +27,8 @@ public class PrebuiltAssembler extends JFrame {
 	 */
 	private static Connection con;
 
+	private User currentUser;
+
 	/**
 	 * deducts 1 qty from part_id in database
 	 * @param partID the part to deduct inventory
@@ -74,18 +76,26 @@ public class PrebuiltAssembler extends JFrame {
 	 */
 	public void goBack() {
 		//return to employee main view
+		new EmployeeDashboard(con, currentUser);
+
+		dispose();
+
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public PrebuiltAssembler(Connection connection) {
+	public PrebuiltAssembler(Connection connection, User user) {
 
 		//add passed in connection
 		con = connection;
+		currentUser = user;
+
 
 		//create frame
 		setTitle("Prebuilt Computer Assembler");
+		setVisible(true);
+		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 473, 437);
 		contentPane = new JPanel();

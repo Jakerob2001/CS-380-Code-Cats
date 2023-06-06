@@ -52,11 +52,14 @@ public class Inventory extends JFrame {
 		contentPane.add(partArea);
 		updateTable(); // updating table upon startup
 
-
+		//Button to close/destroy the current frame
 		backButton = new JButton("Back");
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				dispose();
+
 			}
 		});
 		backButton.setBounds(109, 11, 89, 23);
@@ -107,4 +110,5 @@ public class Inventory extends JFrame {
 			System.out.println("exception " + e.getMessage());
 		}
 	}
+
 }

@@ -9,6 +9,7 @@ public class Part {
     private int part_id;
     private String part_name;
     private String part_desc;
+    private String category;
     private double part_price;
 
     /**
@@ -75,9 +76,27 @@ public class Part {
         part_price = price;
     }
 
+    /**
+     * Function to get part_cat
+     * @return String value for the part category
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Function to update part_cat
+     * @param category String value to update part category with
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
+
         return part_name;
+
     }
 
     /**
@@ -92,5 +111,6 @@ public class Part {
         part_name = name;
         part_desc = desc;
         part_price = price;
+
     }
 }

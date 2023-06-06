@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -108,7 +107,7 @@ public class PartOrderer extends JFrame {
 			while(result.next()) {
 				//create a part
 				Part newPart;
-				newPart =  new Part(result.getInt(1),result.getString(2),result.getString(3),result.getDouble(5));
+				newPart =  new Part(result.getInt(1),result.getString(2),result.getString(3), result.getDouble(5));
 				partList.add(newPart);
 			}
 		} catch (Exception e) {

@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RepairOrderCreator extends JFrame {
 
@@ -41,7 +43,25 @@ public class RepairOrderCreator extends JFrame {
 	 * Closes the feature window and returns to customer main window. Called after creating repair order or pressing back button
 	 */
 	public void goBack() {
-		//return to employee main view
+
+		new UserDashboard(con, currentUser);
+
+		dispose();
+
+	}
+
+	/**
+	 * Function to check if inputted time is in the past or future
+	 * @param input
+	 * @return
+	 */
+	public static boolean isTimeInFuture(String input) {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime parsedTime = LocalDateTime.parse(input, formatter);
+
+		return parsedTime.isAfter(currentDateTime);
 	}
 
 	/**
@@ -139,7 +159,9 @@ public class RepairOrderCreator extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, backButton, 243, SpringLayout.WEST, contentPane);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				goBack(); //return to customer LP
+
 			}
 		});
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -190,6 +212,12 @@ public class RepairOrderCreator extends JFrame {
 					return;
 				}
 
+				//Call function to check if time is in the future
+				if (!isTimeInFuture(selectedTime)) {
+					System.out.println("Time must be in the future!");
+					JOptionPane.showMessageDialog(null, "Time must be in the future!");
+					return;
+				}
 				//add repair order to database
 				try {
 					//query for max order_id and increment
@@ -220,4 +248,5 @@ public class RepairOrderCreator extends JFrame {
 		createButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		contentPane.add(createButton);
 	}
+
 }

@@ -6,17 +6,17 @@
  */
 public class User {
 
-	protected String userID;
+	private String userID;
 	
-	protected String username;
+	private String username;
 	
-	protected String password;
+	private String password;
 	
-	protected String firstName;
+	private String firstName;
 	
-	protected String lastName;
+	private String lastName;
 	
-	protected int addressID;
+	private int addressID;
 	
 	public User(String userID, String username, String password, String fName, String lName, int addressID) {
 		

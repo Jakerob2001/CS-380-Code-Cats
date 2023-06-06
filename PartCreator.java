@@ -28,19 +28,28 @@ public class PartCreator extends JFrame {
 	private static Connection con;
 
 	/**
+	 * Current user
+	 */
+	private User user;
+
+	/**
 	 * Closes the feature window and returns to employee main window. Called after creating Part or pressing back button
 	 */
 	public void goBack() {
 		//return to employee main view
+		new EmployeeDashboard(con, user);
+
+		dispose();
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public PartCreator(Connection connection) {
+	public PartCreator(Connection connection, User currentUser) {
 
 		//add passed in connection
 		con = connection;
+		user = currentUser;
 
 		//create application frame
 		setTitle("Part Creator");

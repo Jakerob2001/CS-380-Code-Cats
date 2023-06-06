@@ -1,5 +1,4 @@
 //imports
-import java.awt.EventQueue;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -303,7 +302,9 @@ public class Orderer extends JFrame {
 		contentPane.add(backButton);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-						
+
+				goBack();
+
 			}
 		});
 	}
@@ -320,7 +321,7 @@ public class Orderer extends JFrame {
 			Statement statement = con.createStatement();
 			ResultSet result = statement.executeQuery(query);		
 			while(result.next()) {
-				Part tempPart = new Part((Integer.parseInt(result.getString("p.part_id"))), result.getString("part_name"), result.getString("part_desc"),Double.parseDouble(result.getString("part_price")));
+				Part tempPart = new Part((Integer.parseInt(result.getString("p.part_id"))), result.getString("part_name"), result.getString("part_desc"), Double.parseDouble(result.getString("part_price")));
 				parts.add(tempPart);
 			}		
 		} catch(Exception e1) {
@@ -523,4 +524,16 @@ public class Orderer extends JFrame {
 		nf.setMaximumFractionDigits(2);
 		paymentTxtField.setText(String.valueOf(sum));
 	}
+
+	/**
+	 * Method to return back to previous frame
+	 */
+	public void goBack () {
+
+		new UserDashboard(con, user);
+
+		dispose();
+
+	}
+
 }

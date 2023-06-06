@@ -12,13 +12,20 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class EmployeeDashboard extends JFrame {
 
 	private JPanel contentPane;
-	private static EmployeeDashboard employeeLP;
+
+	/**
+	 * Field to store current users instance
+	 */
 	private User currUser;
 
+	/**
+	 * store current instance of the databsse
+	 */
 	private Connection con;
 
 	/**
@@ -30,20 +37,18 @@ public class EmployeeDashboard extends JFrame {
 		currUser = currentUser;
 		System.out.println(currUser);
 
+		setTitle("Employee Dashboard");
 		setResizable(false);
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 327);
+		setBounds(100, 100, 321, 297);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Welcome: User");
-		lblNewLabel.setBounds(150, 11, 148, 19);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		contentPane.add(lblNewLabel);
-
+		//Button with call to create a viewable part inventory
 		JButton btnViewInventory = new JButton("View Inventory");
 		btnViewInventory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -53,14 +58,10 @@ public class EmployeeDashboard extends JFrame {
 			}
 		});
 		btnViewInventory.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnViewInventory.setBounds(10, 40, 163, 23);
+		btnViewInventory.setBounds(71, 41, 163, 23);
 		contentPane.add(btnViewInventory);
 
-		JButton btnNewButton_1 = new JButton("View Repair Requests");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton_1.setBounds(10, 76, 163, 23);
-		contentPane.add(btnNewButton_1);
-
+		//Button with call to partOrderer to order new parts for shop/database
 		JButton btnOrderParts = new JButton("Order Parts");
 		btnOrderParts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -72,35 +73,40 @@ public class EmployeeDashboard extends JFrame {
 			}
 		});
 		btnOrderParts.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnOrderParts.setBounds(10, 112, 163, 23);
+		btnOrderParts.setBounds(71, 75, 163, 23);
 		contentPane.add(btnOrderParts);
 
-		JButton btnNewButton_3 = new JButton("Create Pre-Builts");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton_3.setBounds(10, 148, 163, 23);
-		contentPane.add(btnNewButton_3);
+		//Button with call to PrebuiltAssembler to create new pre builts from existing
+		//part inventory
+		JButton btnPreBuilts = new JButton("Create Pre-Builts");
+		btnPreBuilts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-		JButton btnNewButton_4 = new JButton("Approve Orders");
-		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton_4.setBounds(10, 184, 163, 23);
-		btnNewButton_4.addActionListener(new ActionListener() {
+				new PrebuiltAssembler(con, currUser);
+
+				dispose();
+
+			}
+		});
+		btnPreBuilts.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnPreBuilts.setBounds(71, 109, 163, 23);
+		contentPane.add(btnPreBuilts);
+
+		//Button with call to frame that allows you to view orders and approve
+		//or complete them (Repair orders)
+		JButton btnApproveOrder = new JButton("Approve Order");
+		btnApproveOrder.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnApproveOrder.setBounds(71, 143, 163, 23);
+		btnApproveOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				new FulfillOrders(con, currUser);
 
 			}
 		});
-		contentPane.add(btnNewButton_4);
+		contentPane.add(btnApproveOrder);
 
-		JButton btnNewButton_5 = new JButton("TestFeature");
-		btnNewButton_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "IT WORKS!!", "YURIKA", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		btnNewButton_5.setBounds(260, 126, 91, 23);
-		contentPane.add(btnNewButton_5);
-
+		//Button with call to return to previous frame
 		JButton btnBack = new JButton("<- Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,13 +116,39 @@ public class EmployeeDashboard extends JFrame {
 			}
 		});
 		btnBack.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnBack.setBounds(10, 254, 102, 23);
+		btnBack.setBounds(100, 212, 102, 23);
 		contentPane.add(btnBack);
+		
+		//Button with call to Create parts/add new parts to the database for
+		//available shipment
+		JButton btnCreateParts = new JButton("Create New Part");
+		btnCreateParts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				new PartCreator(con, currUser);
+
+				dispose();
+
+			}
+		});
+		btnCreateParts.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnCreateParts.setBounds(71, 177, 163, 23);
+		contentPane.add(btnCreateParts);
+		
+		JLabel lblWelcome = new JLabel("Welcome: " + currUser.getFirstName());
+		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcome.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblWelcome.setBounds(60, 11, 181, 19);
+		contentPane.add(lblWelcome);
 	}
 
+	/**
+	 * Function to return back to previous frame (SignInPage)
+	 */
 	public void goBack () {
 
 		SignInPage signIn = new SignInPage();
+		//Call to eventQueue startUp method
 		signIn.startUpSignIn();
 
 		dispose();

@@ -187,6 +187,6 @@ public class Prebuilt {
     }
 
     public String toString(){
-        return comp_name;
+        return getComp_name();
     }
 }
