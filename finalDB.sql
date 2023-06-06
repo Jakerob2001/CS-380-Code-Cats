@@ -260,7 +260,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('00001','variable','pass','last','user',1),('C00001','jmike','abc123','Michael','Jackson',1),('C00002','Jmoore','test','Jason','Moore',3),('E00001','nmill','itsmillertime','Nathan ','Miller',1),('E00002','Jrob','Jake2020','Jake','Robinson',2),('E00003','bqual','123apple','Brayden','Qualman',1),('M00004','ksam','kateisgreat','Kate','Samuleson',1);
+INSERT INTO `users` VALUES ('00002','variable','pass','last','user',1),('C00001','jmike','abc123','Michael','Jackson',1),('C00002','Jmoore','test','Jason','Moore',3),('E00001','nmill','itsmillertime','Nathan ','Miller',1),('E00002','Jrob','Jake2020','Jake','Robinson',2),('E00003','bqual','123apple','Brayden','Qualman',1),('M00004','ksam','kateisgreat','Kate','Samuleson',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -273,4 +273,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-05 23:50:20
+-- Dump completed on 2023-06-06 10:39:44
