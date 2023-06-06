@@ -1,3 +1,7 @@
+/**
+* Class to display User Dashboard providing access to all customer features and display of their orders
+* @author Jake, Nathan
+*/
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -167,12 +171,14 @@ public class UserDashboard extends JFrame {
 	 */
 	public ArrayList<Order> populateList() {
 
+		//query all orders under current user
 		String queryOrders = "SELECT * FROM ORDERS WHERE cust_id = '" + currUser.getUserID() + "';";
 
 		String queryRepairs = "SELECT * FROM REPAIR_ORDERS WHERE cust_id = '" + currUser.getUserID() + "';";
 
 		orderList = new ArrayList<>();
 
+		//iterate through both order types and add to lists
 		try {
 			Statement statement = con.createStatement();
 
@@ -214,11 +220,14 @@ public class UserDashboard extends JFrame {
 
 		StringBuilder display = new StringBuilder();
 
+		//create lists
 		displayParts = new ArrayList<>();
 		displayPrebuilts = new ArrayList<>();
 		displayPartQty = new ArrayList<>();
 		displayPreBuiltQty = new ArrayList<>();
 
+		
+		//literate through orders, if retail add retail to global list, else add repair order to global list
 		if (currentOrder.getOrderType().equals("Retail Order")) {
 
 			String queryRetail = "SELECT * FROM ORDER_LINES WHERE order_id = '" + currentOrder.getOrderID() + "';";
@@ -284,12 +293,17 @@ public class UserDashboard extends JFrame {
 
 	}
 
+	/**
+	* Function to query part and add to global list
+	* @param partID The ID of the party to query and add
+	*/
 	public void addPart(String partID){
 
 			boolean exists = false;
 			displayPart thePart = null;
 
-			String query= "SELECT * FROM Part WHERE part_id = '" + partID + "';";
+		//query part by part ID	
+		String query= "SELECT * FROM Part WHERE part_id = '" + partID + "';";
 
 			try {
 				Statement statement = con.createStatement();
@@ -308,6 +322,7 @@ public class UserDashboard extends JFrame {
 						}
 					}
 
+					//create part and add to global list
 					if (exists) {
 						int indexOfPart = displayParts.indexOf(thePart);
 						displayPartQty.set(indexOfPart, displayPartQty.get(indexOfPart) + 1);
@@ -328,6 +343,11 @@ public class UserDashboard extends JFrame {
 
 	}
 
+	
+	/**
+	* Function to get prebuilt and add to global list
+	* @param name The name of the prebuilt to get and add
+	*/
 	public void getPrebuilt(String name){
 
 		boolean exists = false;
@@ -335,6 +355,7 @@ public class UserDashboard extends JFrame {
 
 		displayPreBuiltQty = new ArrayList<>();
 
+		//query prebuilt by name
 		String query = "SELECT * FROM Prebuilt WHERE comp_name = '" + name + "';";
 
 		try {
@@ -345,6 +366,7 @@ public class UserDashboard extends JFrame {
 
 			while(result.next()) {
 
+				//create prebuilt and add to global list
 				displayPrebuilts.add(new displayPrebuilt(result.getString(1), getPart(result.getString(2)),
 											getPart(result.getString(3)), getPart(result.getString(4)), getPart(result.getString(5)),
 											getPart(result.getString(6)), getPart(result.getString(7)), getPart(result.getString(8)),
@@ -358,9 +380,15 @@ public class UserDashboard extends JFrame {
 
 	}
 
+	/**
+	* Function to retun a displayPart
+	* @param partID The part ID to return
+	* @return displayPart The returned part
+	*/
 	public displayPart getPart(String partID) {
 		displayPart thePart = null;
 
+		//query the part
 		String query = "SELECT * FROM Part WHERE part_id = '" + partID + "';";
 
 		try {
@@ -370,6 +398,7 @@ public class UserDashboard extends JFrame {
 
 			while (result.next()) {
 
+				//create a part from queried info
 				thePart = new displayPart(result.getInt(1), result.getString(2), result.getString(3),
 						result.getString(4), result.getDouble(5));
 
