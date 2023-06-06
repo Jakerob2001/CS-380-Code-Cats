@@ -1,4 +1,7 @@
-
+/**
+* Class for new user registration
+* @author Jake
+*/
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -330,7 +333,9 @@ public class SignUpPage extends JFrame {
 		
 		
 	}
-	
+	/**
+	* Function to verify all sign up fields are entered and correct
+	*/
 	public boolean verifySignUp () {
 		
 		boolean allFieldsFilled = txtFirstName.getText().matches("^[A-Za-z]{1,45}$") && txtLastName.getText().matches("^[A-Za-z]{1,45}$") && 
@@ -372,6 +377,9 @@ public class SignUpPage extends JFrame {
 		
 	}
 	
+	/**
+	* Function to add new user to database.
+	*/
 	public void addUser () throws SQLException {
 		
 		String query = "SELECT * FROM users WHERE user_name = 'variable';";
@@ -434,6 +442,12 @@ public class SignUpPage extends JFrame {
 	}
 	
 	
+	/**
+	* Function to create a new user ID based on last user ID
+	* @param str The string to parse
+	* @return String The new User ID
+	*/
+	
 	public static String createID(String str) {
 
         String num = str.replaceAll("[^0-9]", "");
@@ -448,6 +462,9 @@ public class SignUpPage extends JFrame {
 
 	}
 	
+	/**
+	* Function to return to sign in feature window
+	*/
 	public void goBack () {
 		
 		SignInPage signIn = new SignInPage();
