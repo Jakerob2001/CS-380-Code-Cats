@@ -175,6 +175,7 @@ public class Prebuilt {
      */
     public Prebuilt(String name, Part motherboard, Part gpu, Part ps, Part cpu,
     Part ram, Part aCase, Part storage, double price){
+
         setComp_name(name);
         setMotherboard(motherboard);
         setGpu(gpu);
@@ -184,6 +185,7 @@ public class Prebuilt {
         setaCase(aCase);
         setStorage(storage);
         setPrice(price);
+
     }
 
     public String toString(){

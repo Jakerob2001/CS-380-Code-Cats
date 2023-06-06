@@ -14,22 +14,54 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.border.MatteBorder;
 
+/**
+ * Class to approve or deny clients repair and retail orders
+ * @author Jake Robinson
+ */
 public class FulfillOrders extends JFrame {
 
-	private JPanel contentPane;
 
+	private JPanel contentPane;
 	private JTextArea textArea;
 
+	/**
+	 * The connection object for the database.
+	 */
 	private Connection con;
 
+	/**
+	 * The currently logged-in user.
+	 */
 	private User currUser;
 
+	/**
+	 * The list component for displaying string values.
+	 */
 	private JList<String> list;
 
+	/**
+	 * The list of display parts.
+	 */
 	private ArrayList<displayPart> displayParts;
+
+	/**
+	 * The list of display prebuilts.
+	 */
 	private ArrayList<displayPrebuilt> displayPrebuilts;
+
+	/**
+	 * The list of quantities for display parts.
+	 */
 	private ArrayList<Integer> displayPartQty;
+
+	/**
+	 * The list of quantities for display prebuilts.
+	 */
 	private ArrayList<Integer> displayPreBuiltQty;
+
+	/**
+	 * The list of orders.
+	 */
 	private ArrayList<Order> orderList;
 
 	/**
@@ -144,12 +176,19 @@ public class FulfillOrders extends JFrame {
 
 	}
 
+	/**
+	 * Populates and returns a list of orders for the current user.
+	 *
+	 * @return an ArrayList of Order objects representing the user's orders
+	 */
 	public ArrayList<Order> populateList() {
 
+		//Create queries to grab all orders and repair orders
 		String queryOrders = "SELECT * FROM ORDERS;";
 
 		String queryRepairs = "SELECT * FROM REPAIR_ORDERS;";
 
+		//create a new arraylist to store order objects
 		orderList = new ArrayList<>();
 
 		try {
@@ -157,6 +196,7 @@ public class FulfillOrders extends JFrame {
 
 			ResultSet result = statement.executeQuery(queryOrders);
 
+			//Add retail orders to the list
 			while(result.next()) {
 
 				orderList.add(new Order("Retail Order", String.valueOf(result.getInt(1)), currUser.getUserID(), currUser.getUsername()
@@ -166,6 +206,7 @@ public class FulfillOrders extends JFrame {
 
 			result = statement.executeQuery(queryRepairs);
 
+			//add repair orders to the list
 			while(result.next()) {
 
 				orderList.add(new Order("Repair Order", String.valueOf(result.getInt(2)), currUser.getUserID(), currUser.getUsername()
@@ -182,6 +223,11 @@ public class FulfillOrders extends JFrame {
 
 	}
 
+	/**
+	 * Displays the details of an order at the specified index.
+	 *
+	 * @param index the index of the order to display
+	 */
 	public void displayDetails(int index) {
 
 		Order currentOrder = orderList.get(index);
@@ -202,12 +248,16 @@ public class FulfillOrders extends JFrame {
 
 				while(result.next()) {
 
+					//Check if the part_id is null, if not add the part to the details list
 					if (result.getString(3) != null) {
 
+						//call add part to add the part info to the text
 						addPart(result.getString(3));
 
+						//else grab the prebuilt using prebuilt name
 					} else {
 
+						//call getPrebuilt to add the prebuilt to the text
 						getPrebuilt(result.getString(5));
 
 					}
@@ -219,6 +269,7 @@ public class FulfillOrders extends JFrame {
 				e1.printStackTrace();
 			}
 
+		//If its not a retail select the repair order and display its info
 		} else {
 
 			String queryRepair = "SELECT * FROM REPAIR_ORDERS WHERE rep_order_id = '" + currentOrder.getOrderID() + "';";
@@ -241,14 +292,17 @@ public class FulfillOrders extends JFrame {
 
 		}
 
+		//Create StringBuilder to populate into text area
 		StringBuilder display = new StringBuilder();
 
+		//add all parts to the StringBuilder
 		for (int i = 0; i < displayParts.size(); i++) {
 			display.append(displayParts.get(i)).append(" | Qty: ").append(displayPartQty.get(i)).append("\n");
 		}
 
 		display.append("\n");
 
+		//add prebuilts to the StringBuiler
 		for (int j = 0; j < displayPrebuilts.size(); j++) {
 
 			display.append(displayPrebuilts.get(j)).append("\n");
@@ -414,6 +468,7 @@ public class FulfillOrders extends JFrame {
 
 			displayPreBuiltQty = new ArrayList<>();
 
+			//query prebuilt by name
 			String query = "SELECT * FROM Prebuilt WHERE comp_name = '" + name + "';";
 
 			try {
@@ -424,6 +479,7 @@ public class FulfillOrders extends JFrame {
 
 				while(result.next()) {
 
+					//create prebuilt and add to global list
 					displayPrebuilts.add(new displayPrebuilt(result.getString(1), getPart(result.getString(2)),
 							getPart(result.getString(3)), getPart(result.getString(4)), getPart(result.getString(5)),
 							getPart(result.getString(6)), getPart(result.getString(7)), getPart(result.getString(8)),
@@ -444,8 +500,10 @@ public class FulfillOrders extends JFrame {
 		 * @return the displayPart object representing the retrieved part, or null if not found
 		 */
 		public displayPart getPart(String partID) {
+
 			displayPart thePart = null;
 
+			//query the part
 			String query = "SELECT * FROM Part WHERE part_id = '" + partID + "';";
 
 			try {
@@ -455,6 +513,7 @@ public class FulfillOrders extends JFrame {
 
 				while (result.next()) {
 
+					//create a part from queried info
 					thePart = new displayPart(result.getInt(1), result.getString(2), result.getString(3),
 							result.getString(4), result.getDouble(5));
 
@@ -468,6 +527,11 @@ public class FulfillOrders extends JFrame {
 
 		}
 
+	/**
+	 * Method to remove quantity from parts
+	 * @param partID
+	 * @param qtyToDeduct
+	 */
 		public void deductQty(int partID, int qtyToDeduct) {
 			try {
 				String update = "UPDATE part_inventory SET qty = qty - " + qtyToDeduct + " WHERE part_id = " + partID;

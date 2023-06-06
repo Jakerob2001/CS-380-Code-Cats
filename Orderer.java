@@ -318,12 +318,16 @@ public class Orderer extends JFrame {
 		String query = "SELECT * FROM part p JOIN part_inventory pi ON p.part_id = pi.part_id WHERE pi.qty > 0;";
 				
 		try {
+
 			Statement statement = con.createStatement();
 			ResultSet result = statement.executeQuery(query);		
 			while(result.next()) {
+
 				Part tempPart = new Part((Integer.parseInt(result.getString("p.part_id"))), result.getString("part_name"), result.getString("part_desc"), Double.parseDouble(result.getString("part_price")));
 				parts.add(tempPart);
-			}		
+
+			}
+
 		} catch(Exception e1) {
 			JOptionPane.showMessageDialog(contentPane, "error: " + e1.getMessage(), "Query error", JOptionPane.ERROR_MESSAGE);
 		}

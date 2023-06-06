@@ -152,16 +152,24 @@ public class Order {
 		this.orderType = orderType;
 	}
 
+	/**
+	 * method to print retail info
+	 * @return retail info
+	 */
 	public String toStringRetail() {
-		return  "Type: " + orderType + " | " +
-				"Card: " + cardType + " | " +
-				"Date: " + orderDate;
+		return  "Type: " + getOrderType() + " | " +
+				"Card: " + getCardType() + " | " +
+				"Date: " + getOrderDate();
 
 	}
 
+	/**
+	 * method to print repair info
+	 * @return repair info
+	 */
 	public String toStringRepair() {
-		return  "Type: " + orderType + " | " +
-				"Time: " + orderDate;
+		return  "Type: " + getOrderType() + " | " +
+				"Time: " + getOrderDate();
 
 	}
 
