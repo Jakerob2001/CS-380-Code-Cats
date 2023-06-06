@@ -80,7 +80,7 @@ public class EmployeeDashboard extends JFrame {
 		btnNewButton_3.setBounds(10, 148, 163, 23);
 		contentPane.add(btnNewButton_3);
 
-		JButton btnNewButton_4 = new JButton("View Orders");
+		JButton btnNewButton_4 = new JButton("Approve Orders");
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton_4.setBounds(10, 184, 163, 23);
 		btnNewButton_4.addActionListener(new ActionListener() {

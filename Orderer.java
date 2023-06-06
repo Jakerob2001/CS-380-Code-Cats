@@ -70,12 +70,15 @@ public class Orderer extends JFrame {
 	List comps = new ArrayList<Prebuilt>();
 	List cart = new ArrayList<>();
 
+	private User user;
+
 	/**
 	 * Create the frame.
 	 */
 	public Orderer(Connection connection, User currentUser) {
 
 		con = connection;
+		user = currentUser;
 
 		//creating the pane
 		setTitle("Order Parts");
@@ -388,7 +391,6 @@ public class Orderer extends JFrame {
 		}
 	
 		//creating a new user and getting the current date
-		User user = new User("C00001", "mikeynew", "securepassword", "Michael", "Jackson", 1);
 		String time = java.time.LocalDate.now().toString();
 		
 
