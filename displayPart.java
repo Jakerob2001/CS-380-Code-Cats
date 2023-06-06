@@ -1,3 +1,7 @@
+/**
+* Modifed part class for display purposes
+* @author Jake
+*/
 public class displayPart {
 
         /**
